@@ -1,6 +1,47 @@
 # BuDDy
 
-This is a copy of the BuDDy library obtained from the [BuDDy website](http://buddy.sourceforge.net/manual/main.html) that is
-provisioned with CMakeLists.txt files so that BuDDy can be built on Windows with Visual Studio. The BuDDy version provisioned is 2.4.
+BuDDy is a BDD package originaly created by Jørn Lind-Nielsen
+[Lind-Nielsen99](#references). This repository is a continuation of
+[jgcoded/BuDDy](https://github.com/jgcoded/BuDDy) (now archived) which adds
+CMake support for easy modern compilation and integration into your project.
 
- Currently works with Visual Studio 2017 RC.
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
+
+- [BuDDy](#buddy)
+    - [Getting Started](#getting-started)
+    - [References](#references)
+
+<!-- markdown-toc end -->
+
+## Getting Started
+
+To use this repository in your project, clone it into your folder of external
+dependencies. If your project already is a Git repository, then add this as
+a submodule.
+
+```bash
+git submodule add https://github.com/SSoelvsten/buddy external/buddy
+git submodule update --init
+```
+
+Include the following line in your project’s _CMakeLists.txt._
+
+```cmake
+add_subdirectory (external/buddy bdd)
+```
+
+Finally, you link your executable target to _BuDDy_ in the CMakeLists.txt file as follows.
+
+```cmake
+add_executable(<target> <source.cpp>)
+target_include_directories(<target> PRIVATE "${PROJECT_SOURCE_DIR}/external/buddy/src"))
+target_link_libraries(<target> bdd)
+```
+
+## References
+
+- [[Lind-Nielsen99](http://www.itu.dk/research/buddy/)]
+  Jørn Lind-Nielsen. “_BuDDy: A binary decision diagram package_”. Technical
+  report, _Department of Information Technology, Technical University of
+  Denmark_, 1999.
