@@ -5,10 +5,22 @@ BuDDy is a BDD package originaly created by Jørn Lind-Nielsen
 [jgcoded/BuDDy](https://github.com/jgcoded/BuDDy) (now archived) which adds
 CMake support for easy modern compilation and integration into your project.
 
+## Preface
+
+BuDDy was originally developed by Jorn Lind-Nielsen as a part of his PhD thesis.
+After using BuDDy as a BDD library for long time (while getting some support
+from Jorn through email), I have been suggested by Jorn to take ownership of the
+project and move it to SourceForge. I invite all users who are interested to
+participate in the development to contact me. (I always have desired tasks /
+features awaiting...) I hope that BuDDy will prosper under my management.
+
+-- _Haim Cohen_ (haimcohen@users.sourceforge.net)
+
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
 
 - [BuDDy](#buddy)
+    - [Preface](#preface)
     - [Getting Started](#getting-started)
     - [References](#references)
 
