@@ -1,7 +1,7 @@
 # BuDDy
 
 BuDDy is a BDD package originaly created by Jørn Lind-Nielsen
-[Lind-Nielsen99](#references). This repository is a continuation of
+[[Lind-Nielsen99](#references)]. This repository is a continuation of
 [jgcoded/BuDDy](https://github.com/jgcoded/BuDDy) (now archived) which adds
 CMake support for easy modern compilation and integration into your project.
 
