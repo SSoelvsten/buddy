@@ -228,8 +228,7 @@ ostream &operator<<(ostream &o, const bdd &r)
       bdd_printset_rec(o, r.root, set);
       delete[] set;
    }
-   else
-   if (bdd_ioformat::curformat == IOFORMAT_TABLE)
+   else if (bdd_ioformat::curformat == IOFORMAT_TABLE)
    {
       o << "ROOT: " << r.root << "\n";
       if (r.root < 2)
@@ -257,8 +256,7 @@ ostream &operator<<(ostream &o, const bdd &r)
 	 }
       }
    }
-   else
-   if (bdd_ioformat::curformat == IOFORMAT_DOT)
+   else if (bdd_ioformat::curformat == IOFORMAT_DOT)
    {
       o << "digraph G {\n";
       o << "0 [shape=box, label=\"0\", style=filled, shape=box, height=0.3, width=0.3];\n";
@@ -270,8 +268,7 @@ ostream &operator<<(ostream &o, const bdd &r)
 
       bdd_unmark(r.root);
    }
-   else
-   if (bdd_ioformat::curformat == IOFORMAT_FDDSET)
+   else if (bdd_ioformat::curformat == IOFORMAT_FDDSET)
    {
       if (ISCONST(r.root))
       {
@@ -327,8 +324,7 @@ ostream &operator<<(ostream &o, const bdd_ioformat &f)
    if (f.format == IOFORMAT_SET  ||  f.format == IOFORMAT_TABLE  ||
        f.format == IOFORMAT_DOT  ||  f.format == IOFORMAT_FDDSET)
       bdd_ioformat::curformat = f.format;
-   else
-   if (f.format == IOFORMAT_ALL)
+   else if (f.format == IOFORMAT_ALL)
    {
       for (int n=0 ; n<bddnodesize ; n++)
       {
@@ -425,8 +421,7 @@ static void fdd_printset_rec(ostream &o, int r, int *set)
    
    if (r == 0)
       return;
-   else
-   if (r == 1)
+   else if (r == 1)
    {
       o << "<";
       first=1;

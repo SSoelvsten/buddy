@@ -187,8 +187,7 @@ static BddTree *reorder_win2(BddTree *t)
 	 blockdown(this->prev);
 	 this = this->next;
       }
-      else
-      if (first == this)
+      else if (first == this)
 	 first = this->prev;
 
       if (verbose > 1)
@@ -234,8 +233,7 @@ static BddTree *reorder_win2ite(BddTree *t)
 	    blockdown(this->prev);
 	    this = this->next;
 	 }
-	 else
-	 if (first == this)
+	 else if (first == this)
 	    first = this->prev;
 	 if (verbose > 1)
 	 {
