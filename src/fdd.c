@@ -498,7 +498,7 @@ int* fdd_scanallvar(BDD r)
       for (m=domain[n].binsize-1 ; m>=0 ; m--)
 	 if ( store[domain[n].ivar[m]] )
 	    val = val*2 + 1;
-         else
+	 else
 	    val = val*2;
       
       res[n] = val;

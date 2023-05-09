@@ -1066,8 +1066,7 @@ static BDD constrain_rec(BDD f, BDD c)
 	 POPREF(2);
       }
    }
-   else
-   if (LEVEL(f) < LEVEL(c))
+   else if (LEVEL(f) < LEVEL(c))
    {
       PUSHREF( constrain_rec(LOW(f), c) );
       PUSHREF( constrain_rec(HIGH(f), c) );
@@ -1506,8 +1505,7 @@ static BDD simplify_rec(BDD f, BDD d)
 	 POPREF(2);
       }
    }
-   else
-   if (LEVEL(f) < LEVEL(d))
+   else if (LEVEL(f) < LEVEL(d))
    {
       PUSHREF( simplify_rec(LOW(f), d) );
       PUSHREF( simplify_rec(HIGH(f), d) );
@@ -1975,8 +1973,7 @@ static int appquant_rec(int l, int r)
    
    if (ISCONST(l)  &&  ISCONST(r))
       res = oprres[appexop][(l<<1) | r];
-   else
-   if (LEVEL(l) > quantlast  &&  LEVEL(r) > quantlast)
+   else if (LEVEL(l) > quantlast  &&  LEVEL(r) > quantlast)
    {
       int oldop = applyop;
       applyop = appexop;
@@ -2006,8 +2003,7 @@ static int appquant_rec(int l, int r)
 	 else
 	    res = bdd_makenode(LEVEL(l), READREF(2), READREF(1));
       }
-      else
-      if (LEVEL(l) < LEVEL(r))
+      else if (LEVEL(l) < LEVEL(r))
       {
 	 PUSHREF( appquant_rec(LOW(l), r) );
 	 PUSHREF( appquant_rec(HIGH(l), r) );
