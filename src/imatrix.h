@@ -37,6 +37,8 @@
 #ifndef _IMATRIX_H
 #define _IMATRIX_H
 
+#include <stdio.h>
+
 typedef struct _imatrix
 {
    char **rows;

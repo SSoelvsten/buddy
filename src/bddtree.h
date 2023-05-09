@@ -38,6 +38,8 @@
 #ifndef _TREE_H
 #define _TREE_H
 
+#include <stdio.h>
+
 typedef struct s_BddTree
 {
    int first, last;  /* First and last variable in this block */
