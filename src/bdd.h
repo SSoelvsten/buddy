@@ -441,6 +441,7 @@ class bdd
    bdd operator|(const bdd &r) const;
    bdd operator|=(const bdd &r);
    bdd operator!(void) const;
+   bdd operator~(void) const;
    bdd operator>>(const bdd &r) const;
    bdd operator>>=(const bdd &r);
    bdd operator-(const bdd &r) const;
@@ -759,6 +760,9 @@ inline bdd bdd::operator|=(const bdd &r)
 { return (*this=bdd_apply(*this,r,bddop_or)); }
 
 inline bdd bdd::operator!(void) const
+{ return bdd_not(*this);}
+
+inline bdd bdd::operator~(void) const
 { return bdd_not(*this);}
 
 inline bdd bdd::operator>>(const bdd &r) const
