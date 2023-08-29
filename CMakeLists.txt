@@ -1,18 +1,39 @@
-cmake_minimum_required(VERSION 2.8)
-project(BuDDy)
+cmake_minimum_required(VERSION 3.12)
+project(buddy
+  VERSION 2.4.0
+  DESCRIPTION "BuDDy: A BDD Package"
+  HOMEPAGE_URL "https://ssoelvsten.github.io/buddy/"
+  LANGUAGES C CXX
+)
 
-set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+# ============================================================================ #
+# Settings
+# ============================================================================ #
 
-set(BUDDY_TARGET buddy)
+message(STATUS "CMake build configuration for ${PROJECT_NAME} ${PROJECT_VERSION}")
 
-# Version
-set(BUDDY_VERSION_MAJOR 2)
-set(BUDDY_VERSION_MINOR 4)
-set(BUDDY_ROOT_DIR ${CMAKE_CURRENT_LIST_DIR})
+message(STATUS "  OS:                        ${CMAKE_SYSTEM_NAME}")
+message(STATUS "  Compiler:                  ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
+message(VERBOSE " |  C Flags:                ${CMAKE_C_FLAGS}")
+message(VERBOSE " |  CXX Flags:              ${CMAKE_CXX_FLAGS}")
+message(VERBOSE " |  EXE Linker Flags:       ${CMAKE_EXE_LINKER_FLAGS}")
 
-add_subdirectory(src)
+message(STATUS "  Library Options:")
+
+option(BUDDY_DISABLE_WARNINGS "Disable warnings from ${PROJECT_NAME}" ON)
+message(STATUS "  | Disable Warnings:        ${BUDDY_DISABLE_WARNINGS}")
 
 option(BUDDY_BUILD_EXAMPLES "Build BuDDy Examples" ON)
+message(STATUS "  | Build Examples:          ${BUDDY_BUILD_EXAMPLES}")
+
+# ============================================================================ #
+# Library Source
+# ============================================================================ #
+add_subdirectory(src)
+
+# ============================================================================ #
+# Examples
+# ============================================================================ #
 if(BUDDY_BUILD_EXAMPLES)
   add_subdirectory(examples)
 endif()

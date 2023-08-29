@@ -1,5 +1,13 @@
-cmake_minimum_required(VERSION 2.8)
+set_property(GLOBAL PROPERTY USE_FOLDERS On)
 
+# ============================================================================ #
+# Move CMake version number into BuDDy's source code
+# ============================================================================ #
+configure_file(config.h.in config.h)
+
+# ============================================================================ #
+# Sources and Headers
+# ============================================================================ #
 set(HEADERS
   config.h
   bdd.h
@@ -27,25 +35,41 @@ set(SOURCES
  tree.c
 )
 
-configure_file(${BUDDY_ROOT_DIR}/config.h.in config.h COPYONLY)
-file(APPEND ${CMAKE_CURRENT_BINARY_DIR}/config.h
-  "\n#define PACKAGE_VERSION \"${BUDDY_VERSION_MAJOR}.${BUDDY_VERSION_MINOR}\"")
-file(APPEND ${CMAKE_CURRENT_BINARY_DIR}/config.h
-  "\n#define MAJOR_VERSION ${BUDDY_VERSION_MAJOR}")
-file(APPEND ${CMAKE_CURRENT_BINARY_DIR}/config.h
-  "\n#define MINOR_VERSION ${BUDDY_VERSION_MINOR}")
+# ============================================================================ #
+# Combine sources into the BuDDy library
+#
+# TODO: Compile as a Shared library
+# ============================================================================ #
+add_library(${PROJECT_NAME} STATIC ${HEADERS} ${SOURCES})
 
-add_library(${BUDDY_TARGET} ${HEADERS} ${SOURCES})
-set_target_properties(${BUDDY_TARGET} PROPERTIES FOLDER BuDDy)
-target_include_directories(${BUDDY_TARGET} PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_BINARY_DIR}
+                                                  ${CMAKE_CURRENT_SOURCE_DIR})
 
+set_target_properties(${PROJECT_NAME} PROPERTIES
+  # Language settings
+  LINKER_LANGUAGE CXX
+  C_STANDARD 11
+  C_STANDARD_REQUIRED ON
+  CXX_STANDARD 11
+  CXX_STANDARD_REQUIRED ON
+  CXX_VISIBILITY_PRESET default
 
+  # Visual Studio
+  FOLDER ${PROJECT_NAME}
+
+  # Project Information
+  VERSION ${PROJECT_VERSION}
+)
+
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_11)
+
+# ============================================================================ #
+# Special compiler settings
+# ============================================================================ #
 if(WIN32)
-  target_compile_definitions(${BUDDY_TARGET} PRIVATE
-    _CRT_SECURE_NO_WARNINGS)
+  target_compile_definitions(${PROJECT_NAME} PRIVATE _CRT_SECURE_NO_WARNINGS)
 endif()
 
-OPTION(BUDDY_DISABLE_WARNINGS "Disable Warnings from BuDDy" ON)
 if(BUDDY_DISABLE_WARNINGS)
   if(MSVC)
     # Force to always compile with W4
