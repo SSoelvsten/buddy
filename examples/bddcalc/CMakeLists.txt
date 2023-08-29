@@ -1,7 +1,3 @@
-cmake_minimum_required(VERSION 2.8)
-
-set(TARGET bddcalc)
-
 set(HEADERS
   hashtbl.h
   parser.h
@@ -9,13 +5,12 @@ set(HEADERS
   slist.h
 )
 
-set(SOURCES 
+set(SOURCES
   hashtbl.cxx
   lexer.cxx
   parser.cxx
 )
 
-add_executable(${TARGET} ${HEADERS} ${SOURCES})
-target_include_directories(${TARGET} PRIVATE ${BUDDY_ROOT_DIR}/src)
-target_link_libraries(${TARGET} ${BUDDY_TARGET})
-set_target_properties(${TARGET} PROPERTIES FOLDER "Examples")
+add_executable(bddcalc ${HEADERS} ${SOURCES})
+target_link_libraries(bddcalc ${PROJECT_NAME})
+set_target_properties(bddcalc PROPERTIES FOLDER "Examples")

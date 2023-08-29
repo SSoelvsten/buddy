@@ -40,15 +40,14 @@ git submodule update --init
 Include the following line in your project’s _CMakeLists.txt._
 
 ```cmake
-add_subdirectory (external/buddy bdd)
+add_subdirectory (external/buddy buddy)
 ```
 
 Finally, you link your executable target to _BuDDy_ in the CMakeLists.txt file as follows.
 
 ```cmake
 add_executable(<target> <source.cpp>)
-target_include_directories(<target> PRIVATE "${PROJECT_SOURCE_DIR}/external/buddy/src"))
-target_link_libraries(<target> bdd)
+target_link_libraries(<target> buddy)
 ```
 
 ## References

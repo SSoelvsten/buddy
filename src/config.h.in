@@ -36,9 +36,11 @@
 
 /* BuDDy's major version. */
 #undef MAJOR_VERSION
+#define MAJOR_VERSION ${PROJECT_VERSION_MAJOR}
 
 /* BuDDy's minor version. */
 #undef MINOR_VERSION
+#define MINOR_VERSION ${PROJECT_VERSION_MINOR}
 
 /* Define to the address where bug reports for this package should be sent. */
 #undef PACKAGE_BUGREPORT
@@ -54,6 +56,7 @@
 
 /* Define to the version of this package. */
 #undef PACKAGE_VERSION
+#define PACKAGE_VERSION "${PROJECT_VERSION}"
 
 /* Define to 1 if you have the ANSI C header files. */
 #undef STDC_HEADERS
