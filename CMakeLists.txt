@@ -3,7 +3,7 @@ project(BuDDy)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-set(BUDDY_TARGET bdd)
+set(BUDDY_TARGET buddy)
 
 # Version
 set(BUDDY_VERSION_MAJOR 2)
