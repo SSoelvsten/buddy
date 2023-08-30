@@ -6,6 +6,12 @@ set_property(GLOBAL PROPERTY USE_FOLDERS On)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.in
                ${CMAKE_CURRENT_SOURCE_DIR}/config.h)
 
+if (BUDDY_STATS)
+  file(APPEND config.h "\n/* BUDDY_STATS */\n")
+  file(APPEND config.h "#define SWAPCOUNT 1\n")
+  file(APPEND config.h "#define CACHESTATS 1\n")
+endif (BUDDY_STATS)
+
 # ============================================================================ #
 # Sources and Headers
 # ============================================================================ #
