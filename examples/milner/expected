@@ -55,18 +55,18 @@ Nodenum: 450079
 Running with N = 64
 SatCount R = 1.48214e+79
 Calc       = 1.48214e+79
-Nodes      = 842100
+Nodes      = 843388
 
 Number of nodes in T is 2409
 Number of nodes in R is 255
 
-Nodenum: 345916
+Nodenum: 347212
 Running with N = 80
 SatCount R = 3.41758e+98
 Calc       = 3.41758e+98
-Nodes      = 1520173
+Nodes      = 1531449
 
 Number of nodes in T is 3017
 Number of nodes in R is 319
 
-Nodenum: 47687
+Nodenum: 64648
