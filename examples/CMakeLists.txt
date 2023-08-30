@@ -16,3 +16,5 @@ add_subdirectory(queen)
 if(NOT WIN32)
 add_subdirectory(solitare)
 endif()
+
+configure_file(runregression runregression COPYONLY)
