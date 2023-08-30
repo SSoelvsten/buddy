@@ -26,8 +26,8 @@ message(STATUS "  | Statistics:              ${BUDDY_STATS}")
 option(BUDDY_DISABLE_WARNINGS "Disable warnings from ${PROJECT_NAME}" ON)
 message(STATUS "  | Disable Warnings:        ${BUDDY_DISABLE_WARNINGS}")
 
-option(BUDDY_BUILD_EXAMPLES "Build BuDDy Examples" ON)
-message(STATUS "  | Build Examples:          ${BUDDY_BUILD_EXAMPLES}")
+option(BUDDY_EXAMPLES "Build BuDDy Examples" ON)
+message(STATUS "  | Build Examples:          ${BUDDY_EXAMPLES}")
 
 # ============================================================================ #
 # Library Source
@@ -37,6 +37,6 @@ add_subdirectory(src)
 # ============================================================================ #
 # Examples
 # ============================================================================ #
-if(BUDDY_BUILD_EXAMPLES)
+if(BUDDY_EXAMPLES)
   add_subdirectory(examples)
 endif()
