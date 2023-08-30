@@ -20,6 +20,9 @@ message(VERBOSE " |  EXE Linker Flags:       ${CMAKE_EXE_LINKER_FLAGS}")
 
 message(STATUS "  Library Options:")
 
+option(BUDDY_STATS "Enable statistics for ${PROJECT_NAME}" OFF)
+message(STATUS "  | Statistics:              ${BUDDY_STATS}")
+
 option(BUDDY_DISABLE_WARNINGS "Disable warnings from ${PROJECT_NAME}" ON)
 message(STATUS "  | Disable Warnings:        ${BUDDY_DISABLE_WARNINGS}")
 
