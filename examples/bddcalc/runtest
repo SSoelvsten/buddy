@@ -2,6 +2,6 @@
 
 foreach calfile ( `ls {.,examples}/*.cal` )
     echo "Running with cal file : $calfile" >> result
-    ./bddcalc $calfile | egrep -v '^Garbage collection' >> result
+    ./bddcalc $calfile | grep -E -v '^Garbage collection' >> result
 end
 

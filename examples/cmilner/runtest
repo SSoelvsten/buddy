@@ -2,5 +2,5 @@
 
 foreach N ( 4 10 16 20 30 50 64 )
     echo "Running with N = $N" >> result
-    ./cmilner $N | egrep -v '^Garbage collection' >> result
+    ./cmilner $N | grep -E -v '^Garbage collection' >> result
 end
