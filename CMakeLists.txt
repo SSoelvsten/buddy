@@ -5,6 +5,7 @@ project(buddy
   HOMEPAGE_URL "https://ssoelvsten.github.io/buddy/"
   LANGUAGES C CXX
 )
+cmake_policy(SET CMP0077 NEW)
 
 # ============================================================================ #
 # Settings
