@@ -11,6 +11,8 @@ cmake_policy(SET CMP0077 NEW)
 # Settings
 # ============================================================================ #
 
+message(STATUS "")
+
 message(STATUS "CMake build configuration for ${PROJECT_NAME} ${PROJECT_VERSION}")
 
 message(STATUS "  OS:                        ${CMAKE_SYSTEM_NAME}")
@@ -29,6 +31,8 @@ message(STATUS "  | Disable Warnings:        ${BUDDY_DISABLE_WARNINGS}")
 
 option(BUDDY_EXAMPLES "Build BuDDy Examples" ON)
 message(STATUS "  | Build Examples:          ${BUDDY_EXAMPLES}")
+
+message(STATUS "")
 
 # ============================================================================ #
 # Library Source
