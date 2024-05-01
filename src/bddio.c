@@ -39,6 +39,7 @@
 #include <fcntl.h>
 #include <assert.h>
 #include <sys/stat.h>
+#include "bdd.h"
 #include "kernel.h"
 
 static void bdd_printset_rec(FILE *, int, int *);
@@ -125,7 +126,7 @@ void bdd_printall(void)
 void bdd_fprintall(FILE *ofile)
 {
    int n;
-   
+
    for (n=0 ; n<bddnodesize ; n++)
    {
       if (LOW(n) != -1)
@@ -170,19 +171,19 @@ void bdd_fprinttable(FILE *ofile, BDD r)
 {
    BddNode *node;
    int n;
-   
+
    fprintf(ofile, "ROOT: %d\n", r);
    if (r < 2)
       return;
 
    bdd_mark(r);
-   
+
    for (n=0 ; n<bddnodesize ; n++)
    {
       if (LEVEL(n) & MARKON)
       {
 	 node = &bddnodes[n];
-	 
+
 	 LEVELp(node) &= MARKOFF;
 
 	 fprintf(ofile, "[%5d] ", n);
@@ -213,7 +214,7 @@ DESCR   {* Prints all the truth assignments for {\tt r} that would yield
 	          < $x_{2,1}:c_{2,1},\ldots,x_{2,n_2}:c_{2,n_2}$ >\\
 		  $\ldots$ \\
 	          < $x_{N,1}:c_{N,1},\ldots,x_{N,n_3}:c_{N,n_3}$ > }
-	   \end{Ill} 
+	   \end{Ill}
 	   Where the $x$'s are variable numbers (and the position in the
 	   current order) and the $c$'s are the
 	   possible assignments to these. Each set of brackets designates
@@ -232,7 +233,7 @@ void bdd_printset(BDD r)
 void bdd_fprintset(FILE *ofile, BDD r)
 {
    int *set;
-   
+
    if (r < 2)
    {
       fprintf(ofile, "%s", r == 0 ? "F" : "T");
@@ -244,7 +245,7 @@ void bdd_fprintset(FILE *ofile, BDD r)
       bdd_error(BDD_MEMORY);
       return;
    }
-   
+
    memset(set, 0, sizeof(int) * bddvarnum);
    bdd_printset_rec(ofile, r, set);
    free(set);
@@ -255,7 +256,7 @@ static void bdd_printset_rec(FILE *ofile, int r, int *set)
 {
    int n;
    int first;
-   
+
    if (r == 0)
       return;
    else
@@ -263,7 +264,7 @@ static void bdd_printset_rec(FILE *ofile, int r, int *set)
    {
       fprintf(ofile, "<");
       first = 1;
-      
+
       for (n=0 ; n<bddvarnum ; n++)
       {
 	 if (set[n] > 0)
@@ -285,10 +286,10 @@ static void bdd_printset_rec(FILE *ofile, int r, int *set)
    {
       set[LEVEL(r)] = 1;
       bdd_printset_rec(ofile, LOW(r), set);
-      
+
       set[LEVEL(r)] = 2;
       bdd_printset_rec(ofile, HIGH(r), set);
-      
+
       set[LEVEL(r)] = 0;
    }
 }
@@ -356,7 +357,7 @@ static void bdd_fprintdot_rec(FILE* ofile, BDD r)
    fprintf(ofile, "%d -> %d [style=filled];\n", r, HIGH(r));
 
    SETMARK(r);
-   
+
    bdd_fprintdot_rec(ofile, LOW(r));
    bdd_fprintdot_rec(ofile, HIGH(r));
 }
@@ -401,7 +402,7 @@ int bdd_save(FILE *ofile, BDD r)
       fprintf(ofile, "0 0 %d\n", r);
       return 0;
    }
-   
+
    bdd_markcount(r, &n);
    bdd_unmark(r);
    fprintf(ofile, "%d %d\n", n, bddvarnum);
@@ -409,7 +410,7 @@ int bdd_save(FILE *ofile, BDD r)
    for (n=0 ; n<bddvarnum ; n++)
       fprintf(ofile, "%d ", bddvar2level[n]);
    fprintf(ofile, "\n");
-   
+
    err = bdd_save_rec(ofile, r);
    bdd_unmark(r);
 
@@ -421,14 +422,14 @@ static int bdd_save_rec(FILE *ofile, int root)
 {
    BddNode *node = &bddnodes[root];
    int err;
-   
+
    if (root < 2)
       return 0;
 
    if (LEVELp(node) & MARKON)
       return 0;
    LEVELp(node) |= MARKON;
-   
+
    if ((err=bdd_save_rec(ofile, LOWp(node))) < 0)
       return err;
    if ((err=bdd_save_rec(ofile, HIGHp(node))) < 0)
@@ -496,21 +497,24 @@ int bdd_load(FILE *ifile, BDD *root)
       /* Check for constant true / false */
    if (lh_nodenum==0  &&  vnum==0)
    {
-      fscanf(ifile, "%d", root);
+      if (fscanf(ifile, "%d", root) != 1)
+         return bdd_error(BDD_FORMAT);
       return 0;
    }
 
    if ((loadvar2level=(int*)malloc(sizeof(int)*vnum)) == NULL)
       return bdd_error(BDD_MEMORY);
-   for (n=0 ; n<vnum ; n++)
-      fscanf(ifile, "%d", &loadvar2level[n]);
-   
+   for (n=0 ; n<vnum ; n++) {
+      if (fscanf(ifile, "%d", &loadvar2level[n]) != 1)
+         return bdd_error(BDD_FORMAT);
+   }
+
    if (vnum > bddvarnum)
       bdd_setvarnum(vnum);
 
    if ((lh_table=(LoadHash*)malloc(lh_nodenum*sizeof(LoadHash))) == NULL)
       return bdd_error(BDD_MEMORY);
-   
+
    for (n=0 ; n<lh_nodenum ; n++)
    {
       lh_table[n].first = -1;
@@ -523,16 +527,16 @@ int bdd_load(FILE *ifile, BDD *root)
 
    for (n=0 ; n<lh_nodenum ; n++)
       bdd_delref(lh_table[n].data);
-   
+
    free(lh_table);
    free(loadvar2level);
-   
+
    *root = 0;
    if (tmproot < 0)
       return tmproot;
    else
       *root = tmproot;
-   
+
    return 0;
 }
 
@@ -540,7 +544,7 @@ int bdd_load(FILE *ifile, BDD *root)
 static int bdd_loaddata(FILE *ifile)
 {
    int key,var,low,high,root=0,n;
-   
+
    for (n=0 ; n<lh_nodenum ; n++)
    {
       if (fscanf(ifile,"%d %d %d %d", &key, &var, &low, &high) != 4)
