@@ -1,0 +1,21 @@
+#!/bin/sh
+
+cd @CMAKE_CURRENT_SOURCE_DIR@
+
+# truncate the result file
+: > @CMAKE_CURRENT_BINARY_DIR@/result
+
+for f in {.,examples}/*.cal; do
+    echo "Running with cal file : $f" | tee -a @CMAKE_CURRENT_BINARY_DIR@/result
+    @CMAKE_CURRENT_BINARY_DIR@/bddcalc $f \
+        | grep -E -v '^Garbage collection' >> @CMAKE_CURRENT_BINARY_DIR@/result
+done
+
+diff expected @CMAKE_CURRENT_BINARY_DIR@/result
+if [ $? == 0 ]; then
+    echo "Success."
+    exit 0
+else
+    echo "Fail. Differences as shown above (left: expected, right: actual)"
+    exit 1
+fi
