@@ -25,12 +25,12 @@ protected:
       void *data;
       voidSListElem *next;
       ~voidSListElem(void) { delete next; }
-      
+
    private:
       voidSListElem(void *d) { data=d; next=NULL; }
       friend class voidSList;
    };
-   
+
 public:
    voidSList(void)       { head=tail=NULL; len=0; }
    ~voidSList(void)      { delete head; }
@@ -42,7 +42,7 @@ public:
    void reverse(void);
    void eraseHead(void);
    void eraseAll(void)   { delete head; head=tail=NULL; len=0; }
-   
+
 protected:
    int len;
    voidSListElem *head, *tail;
@@ -86,7 +86,7 @@ void *voidSList::append(voidSListElem *p, void *d)
 	 head = elem;
       tail = elem;
    }
-   
+
    len++;
 
    return elem->data;
@@ -99,11 +99,11 @@ void *voidSList::insert(void *d)
 
    if (tail == NULL)
       tail = elem;
-   
+
    elem->next = head;
    head = elem;
    len++;
-   
+
    return elem->data;
 }
 
@@ -112,17 +112,17 @@ void voidSList::reverse(void)
 {
    voidSListElem *newTail = head;
    voidSListElem *tmpHead = NULL;
-   
+
    if (len < 2)
       return ;
-   
+
    while (head != NULL)
    {
       voidSListElem *tmpNext = head->next;
 
       head->next = tmpHead;
       tmpHead = head;
-      
+
       head = tmpNext;
    }
 
@@ -210,7 +210,7 @@ void SList<T>::filter(int (*f)(T&))
       else
       {
 	 voidSListElem *n = next->next;
-	 
+
 	 if (prev == NULL)
 	    voidSList::head = next->next;
 	 else
@@ -218,7 +218,7 @@ void SList<T>::filter(int (*f)(T&))
 	 if (voidSList::head == NULL)
 	    voidSList::tail = NULL;
 
-	 delete next->data;
+	 delete (T*)(next->data);
 	 next->next = NULL;
 	 delete next;
 
