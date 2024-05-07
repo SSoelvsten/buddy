@@ -13,7 +13,7 @@ cmake_policy(SET CMP0077 NEW)
 
 message(STATUS "")
 
-message(STATUS "CMake build configuration for ${PROJECT_NAME} ${PROJECT_VERSION}")
+message(STATUS "CMake build configuration for BuDDy ${PROJECT_VERSION}")
 
 message(STATUS "  OS:                        ${CMAKE_SYSTEM_NAME}")
 message(STATUS "  Compiler:                  ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
